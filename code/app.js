@@ -61,7 +61,7 @@ const setMusic = (i)=>{
     setTimeout(() =>{
         seekBar.max=music.duration;
         musicduration.innerHTML=formateTime(music.duration);
-    },300);
+    },400);
 }
 
 //call this fuction with default value is 0 (to play the first song from ths 'data.js')
