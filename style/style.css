@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+.music-name,
+.artist-name{
+    text-align: center;
+    
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    background: #00a2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.music-player{
+    width: 400px;
+    padding: 25px 35px;
+    border-radius: 12px;
+    text-align: center;
+    background: #9ae0f7;
+}
+nav{
+    display: flex;
+    margin-bottom: 40px;
+}
+.circle{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    color: #01fbff;
+    box-shadow: 0 5px 10px rgba(22, 238, 238, 0.707);
+}
+.disk{
+    width: 180px;
+    height: 180px;
+    position: relative;
+    display: block;
+    margin: 40px auto;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 10px 10px rgb(22, 238, 238);
+    background-image: url('media/images/suzume.jpeg');
+    background-size: cover;
+}
+h1{
+    font-size: 20px;
+    width: 400;
+    color: #333;
+    margin-top: 25px;
+}
+p{
+    font-size: 14px;
+    color: #333;
+}
+
+.song-slider{
+    width: 100%;
+    position: relative;
+}
+.seek-bar{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+    background: #00ffe5;
+    overflow: hidden;
+    cursor: pointer;
+}
+.seek-bar::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 1px;
+    height: 20px;
+    background: #333;
+    box-shadow: -400px 0 0 400px #00bfff;
+}
+.current-time,
+.song-duration{
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+.current-time{
+    position: absolute;
+    left: 0;
+}
+
+.song-duration{
+    position: absolute;
+    right: 0;
+}
+.controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+.controls div{
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #01fbff;
+    box-shadow: 0 10px 20px rgba(22, 238, 238, 0.707);
+    cursor: pointer;
+}
+.controls div:nth-child(2){
+    transform: scale(1.5);
+    background: #00ffe5;
+    color: #fff;
+}
