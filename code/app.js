@@ -88,7 +88,7 @@ setInterval(() => {
     seekBar.value=music.currentTime;
     currentTime.innerHTML = formateTime(music.currentTime);
 
-}, 650);
+}, 800);
 
 //use it to change the duration of the song using seekbar
 seekBar.addEventListener('change',()=>{
