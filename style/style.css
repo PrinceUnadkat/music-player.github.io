@@ -1,16 +1,17 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     box-sizing: border-box;
     text-transform: capitalize;
 }
+
 .music-name,
-.artist-name{
+.artist-name {
     text-align: center;
-    
 }
-.container{
+
+.container {
     width: 100%;
     height: 100vh;
     background: #00a2ff;
@@ -19,18 +20,21 @@
     justify-content: center;
     flex-wrap: wrap;
 }
-.music-player{
+
+.music-player {
     width: 400px;
     padding: 25px 35px;
     border-radius: 12px;
     text-align: center;
     background: #9ae0f7;
 }
-nav{
+
+nav {
     display: flex;
     margin-bottom: 40px;
 }
-.circle{
+
+.circle {
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -39,7 +43,8 @@ nav{
     color: #01fbff;
     box-shadow: 0 5px 10px rgba(22, 238, 238, 0.707);
 }
-.disk{
+
+.disk {
     width: 180px;
     height: 180px;
     position: relative;
@@ -51,22 +56,25 @@ nav{
     background-image: url('media/images/suzume.jpeg');
     background-size: cover;
 }
-h1{
+
+h1 {
     font-size: 20px;
     width: 400;
     color: #333;
     margin-top: 25px;
 }
-p{
+
+p {
     font-size: 14px;
     color: #333;
 }
 
-.song-slider{
+.song-slider {
     width: 100%;
     position: relative;
 }
-.seek-bar{
+
+.seek-bar {
     -webkit-appearance: none;
     width: 100%;
     height: 5px;
@@ -75,35 +83,39 @@ p{
     overflow: hidden;
     cursor: pointer;
 }
-.seek-bar::-webkit-slider-thumb{
+
+.seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 1px;
     height: 20px;
     background: #333;
     box-shadow: -400px 0 0 400px #00bfff;
 }
+
 .current-time,
-.song-duration{
+.song-duration {
     font-size: 14px;
     margin-top: 30px;
 }
 
-.current-time{
+.current-time {
     position: absolute;
     left: 0;
 }
 
-.song-duration{
+.song-duration {
     position: absolute;
     right: 0;
 }
-.controls{
+
+.controls {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 20px;
 }
-.controls div{
+
+.controls div {
     width: 60px;
     height: 60px;
     margin: 20px;
@@ -116,8 +128,75 @@ p{
     box-shadow: 0 10px 20px rgba(22, 238, 238, 0.707);
     cursor: pointer;
 }
-.controls div:nth-child(2){
+
+.controls div:nth-child(2) {
     transform: scale(1.5);
     background: #00ffe5;
     color: #fff;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.payment-form button {
+    padding: 10px 20px;
+    background-color: #00a2ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.payment-form button:hover {
+    background-color: #007bbf;
 }
