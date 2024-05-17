@@ -2,7 +2,7 @@ In this project: Music Player
 
 Introduction:
 
-In this project when i(User) play 3 or 4 songs (or change the 3 or 4 songs) give the message (popup) that "please pay to play the song" if i(User) click on "ok" button then continue the song or change the song until next 3 or 4 songs.
+In this project when i(User) play 3 or 4 songs (or change the 3 or 4 songs) give the message (popup) that "please pay to play the song" if i(User) click on "payment" button then continue the song.
  
 else play only first song until User will pay
 
