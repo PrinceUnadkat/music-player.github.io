@@ -1,16 +1,14 @@
-let progess = document.getElementById("progess");
+let progress = document.getElementById("progess");
 let song = document.getElementById("songs");
 let ctrlIcon = document.getElementById("ctrlIcon");
 
+//for payment and music data
 let currentMusic = 0;
-
-//fbtimes to count the song (how many times song was changed)
 let fbTimes = 0;
+let payment=false;
 
-//variable to get the song detail from 'data.js'
+//importing or connecting the html ids and class to using it in the code
 const music = document.querySelector('#songs');
-
-//make the variable to use the html content
 const seekBar = document.querySelector('.seek-bar');
 const songName = document.querySelector('.song-name');
 const artistName = document.querySelector('.artist-name');
@@ -19,167 +17,158 @@ const musicduration = document.querySelector('.song-duration');
 const forwardBtn = document.querySelector('.forward-btn');
 const playbtn = document.querySelector('.btn');
 const backwardBtn = document.querySelector('.backward-btn');
-
-//disk variable is use to change the cover (song image)
 const disk = document.querySelector('.disk');
+const paymentModal = document.getElementById("paymentModal");
+const closeBtn = document.getElementById("closeBtn");
+const confirmPaymentBtn = document.getElementById("confirmPaymentBtn");
 
-//this function is use to get and store the total and current time of the song
+//for current music and duration
 song.onloadedmetadata = function(){
-    progess.max=song.duration;
-    progess.value=song.currentTime;
+    seekBar.max = song.duration;
+    progress.value = song.currentTime;
 }
 
-//in this function when the 'playbtn' is clicked the button icon change and the song was play and pause
-playbtn.addEventListener('click',()=>{
-    if(ctrlIcon.classList.contains("fa-pause")){      //for pause the song
-            song.pause();
-            ctrlIcon.classList.remove("fa-pause");
-            ctrlIcon.classList.add("fa-play");
-        }
-        else{                                          //for play the song
-            song.play();
-            ctrlIcon.classList.add("fa-pause");
-            ctrlIcon.classList.remove("fa-play");
-        }
+//for play and pause
+playbtn.addEventListener('click', () => {
+    if (ctrlIcon.classList.contains("fa-pause")) {
+        song.pause();
+        ctrlIcon.classList.remove("fa-pause");
+        ctrlIcon.classList.add("fa-play");
+    } else {
+        song.play();
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+    }
 })
 
-//setup the music
-const setMusic = (i)=>{
+//set the song data
+const setMusic = (i) => {
     seekBar.value = 0;
-    let song = songs[i];
+    let songData = songs[i];
     currentMusic = i;
-    music.src=song.path;
-
-    //display the contents
-    songName.innerHTML=song.name;
-    artistName.innerHTML=song.artist;
-    disk.style.backgroundImage = `url('${song.cover}')`;
-
-    currentTime.innerHTML = '00:00';
+    music.src = songData.path;
+    songName.innerHTML = songData.name;
+    artistName.innerHTML = songData.artist;
+    disk.style.backgroundImage = `url('${songData.cover}')`;
     
-    //add some delay to find the duration
-    setTimeout(() =>{
-        seekBar.max=music.duration;
-        musicduration.innerHTML=formateTime(music.duration);
-    },300);
+    currentTime.innerHTML = '00:00';
+    //just like delay for song
+    setTimeout(() => {
+        seekBar.max = music.duration;
+        musicduration.innerHTML = formatTime(music.duration);
+    }, 300)
 }
 
-//call this fuction with default value is 0 (to play the first song from ths 'data.js')
-setMusic(0);
-
-// formate the time for duration of the song
-//because time is in another formate
-const formateTime =(time) =>{
-    //roundof the min and sec
-    let min = Math.floor(time/60);
-    if(min<10){
+//for min:sec fromate of the current time and duration
+const formatTime = (time) => {
+    let min = Math.floor(time / 60);
+    if (min < 10) {
         min = `0${min}`;
     }
-    let sec = Math.floor(time%60);
-    if(sec<10){
-        sec= `0${sec}`;
+    let sec = Math.floor(time % 60);
+    if (sec < 10) {
+        sec = `0${sec}`;
     }
-    //return with min:sec fromat
     return `${min} : ${sec}`;
 }
 
-//for seekbar
+//delay to find the duration and current time properly
 setInterval(() => {
-    seekBar.value=music.currentTime;
-    currentTime.innerHTML = formateTime(music.currentTime);
+    seekBar.value = music.currentTime;
+    currentTime.innerHTML = formatTime(music.currentTime);
+}, 800)
 
-}, 800);
-
-//use it to change the duration of the song using seekbar
-seekBar.addEventListener('change',()=>{
+//updating the pointer position of seekbar
+seekBar.addEventListener('change', () => {
     music.currentTime = seekBar.value;
-});
+})
 
-//this function is use to change the song with condion while click on the button
+//to play the song and change the icon
+const playMusic = () => {
+    song.play();
+    ctrlIcon.classList.remove("fa-play");
+    ctrlIcon.classList.add("fa-pause");
+}
+
+//to pause the song and change the icon
+const pauseMusic = () => {
+    song.pause();
+    ctrlIcon.classList.remove("fa-pause");
+    ctrlIcon.classList.add("fa-play");
+}
+
+//for forward button
 forwardBtn.addEventListener('click', () => {
-    if (fbTimes > 2) {          //when the button is clicked more than 3 times than show the popup for payment
-        const confirmation = confirm("Please pay to play the next song.");
-        if (confirmation) {
-            currentMusic = 3;
-            fbTimes=0;
-        } else {
+    if (fbTimes >= 2 && !payment) {
+        pauseMusicForPayment();
+        confirmPaymentBtn();
+    } else {
+        currentMusic++;
+        if (currentMusic >= songs.length) {
             currentMusic = 0;
         }
-    } else if (fbTimes >= songs.length - 1) {
-        currentMusic = 0;
-    } else {
-        currentMusic++;
         fbTimes++;
-    }
-
-    //call the function
-    setMusic(currentMusic);
-    
-    //This condiotion is to confirm that the play and pause icone the working (for ui bug)
-    if (song.paused) {      // If the music is paused, play it and change the icon to pause
-        song.play();
-        ctrlIcon.classList.remove("fa-play");
-        ctrlIcon.classList.add("fa-pause");
-    } else {                 // If the music is playing, pause it and change the icon to play
-        song.pause();
-        ctrlIcon.classList.remove("fa-pause");
-        ctrlIcon.classList.add("fa-play");
-    }
-});
-
-// Event listener for the audio element ended event
-song.addEventListener('ended', () => {
-    if (currentMusic < songs.length - 1) { //when the current song is over then play next until the condition is true
-        currentMusic++;
-        fbTimes++;
-        if (fbTimes > 2) {//when the song is change more than 3 times than show the popup for payment
-            const confirmation = confirm("Please pay to play the next song.");
-            if (confirmation) {
-                currentMusic = 3;
-                fbTimes=0;
-            } else {
-                currentMusic = 0;
-            }
-        }
-
-        //call the function
         setMusic(currentMusic);
-        song.play();
-
-        //change the play/pause icone
-        ctrlIcon.classList.remove("fa-play");
-        ctrlIcon.classList.add("fa-pause");
+        playMusic();
     }
-});
+})
 
-//this function is use to change the song with condion while click on the button
+//for backward button
 backwardBtn.addEventListener('click', () => {
-    if (fbTimes > 2) {              //when the button is clicked more than 3 times than show the popup for payment
-        const confirmation = confirm("Please pay to play the previous song.");
-        if (confirmation) {
-            currentMusic = songs.length - 4;         
-            fbTimes=0;
-        } else {
-            currentMusic = 0;                      
-        }
-    } else if (currentMusic === 0) {
-        currentMusic = songs.length - 1;           
+    if (fbTimes >= 2 && !payment) {
+        pauseMusicForPayment();
+        confirmPaymentBtn();
     } else {
-        currentMusic--;                             
+        currentMusic--;
+        if (currentMusic < 0) {
+            currentMusic = songs.length - 1;
+        }
         fbTimes++;
+        setMusic(currentMusic);
+        playMusic();
     }
+})
 
-    //call the function
-    setMusic(currentMusic);
-    
-    //This condiotion is to confirm that the play and pause icone the working (for ui bug)
-    if (song.paused) {               // If the music is paused, play it and change the icon to pause
-        song.play();
-        ctrlIcon.classList.remove("fa-play");
-        ctrlIcon.classList.add("fa-pause");
-    } else {                         // If the music is playing, pause it and change the icon to play
-        song.pause();
-        ctrlIcon.classList.remove("fa-pause");
-        ctrlIcon.classList.add("fa-play");
+//when the song is end next song is play
+song.addEventListener('ended', () => {
+    if (fbTimes >= 2 && !payment) {
+        pauseMusicForPayment();
+        confirmPaymentBtn();
+    } else {
+        currentMusic++;
+        if (currentMusic >= songs.length) {
+            currentMusic = 0;
+        }
+        fbTimes++;
+        setMusic(currentMusic);
+        playMusic();
     }
-});
+})
+
+//pause the song untile payment was done
+const pauseMusicForPayment = () => {
+    pauseMusic();
+    paymentModal.style.display = "block";
+}
+
+//hide th payment popup
+closeBtn.onclick = () => {
+    paymentModal.style.display = "none";
+}
+
+//if the payment was done reset the variable and popup doesn't appear again
+confirmPaymentBtn.onclick = () => {
+    paymentModal.style.display = "none";
+    fbTimes = 0;
+    payment=true;
+    playMusic();
+}
+
+//when user click outside the popup window the window was hide or close
+window.onclick = (event) => {
+    if (event.target == paymentModal) {
+        paymentModal.style.display = "none";
+    }
+}
+// initialize the first song
+setMusic(0);
