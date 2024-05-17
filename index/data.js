@@ -35,6 +35,18 @@ let songs =[{
     cover : 'media/images/Imagine Dragons x J.I.D - Enemy .png'
 },
 {
+    name : 'Memories (Piano Instrumental)',
+    path : 'media/music/Memories (Piano Instrumental).mp3',
+    artist : 'Maroon 5',
+    cover : 'media/images/Memories (Piano Instrumental).jpeg'
+},
+{
+    name : 'jo tu mera humdard hai (slow)',
+    path : 'media/music/jo tu mera humdard hai (slow).mp3',
+    artist : 'Arijit Singh',
+    cover : 'media/images/jo tu mera humdard hai (slow).jpeg'
+},
+{
     name : 'Doraemon Theme Song - Doraemon No Uta (Piano Cover)',
     path : 'media/music/Doraemon Theme Song - Doraemon No Uta (Piano Cover).m4a',
     artist : '-',
