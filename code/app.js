@@ -76,7 +76,7 @@ const formatTime = (time) => {
 setInterval(() => {
     seekBar.value = music.currentTime;
     currentTime.innerHTML = formatTime(music.currentTime);
-}, 750)
+}, 800)
 
 //updating the pointer position of seekbar
 seekBar.addEventListener('change', () => {
